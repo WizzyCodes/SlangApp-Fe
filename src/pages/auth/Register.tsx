@@ -32,10 +32,11 @@ const Register = () => {
     setAvatar(file);
     setMyImage(URL.createObjectURL(file));
   };
-  //   bg-[#E8F5E9]
+  //   bg-[#E8F5E9]bg-[#00897B]
+  //
   return (
     <div className="w-full h-screen">
-      <div className="w-[100%] h-full bg-[#00897B] flex justify-center items-center">
+      <div className="w-[100%] h-full  flex justify-center items-center">
         <div
           className="h-[80vh] w-[80vw]
         
@@ -81,11 +82,14 @@ const Register = () => {
               </div>
               {Myimage && (
                 <div className="h-[45px] w-[55px] border-y border-r">
-                  <img src={Myimage} className="h-full object-cover" />
+                  <img
+                    src={Myimage}
+                    className="h-full object-cover object-center w-full "
+                  />
                 </div>
               )}
             </div>
-            <div className="w-[85%] h-[85%] ml-5 p-4 mt-3 rounded-lg shadow-lg  bg-white">
+            <div className="w-[85%] h-[87%] ml-5 p-4 mt-3 rounded-lg shadow-lg  bg-white">
               <form onSubmit={handleSubmit} className=" ">
                 <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
                   Register

@@ -72,8 +72,8 @@ export const WritePost = () => {
             </div>
           </div>
           <div className="w-full items-center justify-around flex mt-3 font-semibold">
-            <p>Word</p>
-            <p>Slangs</p>
+            <p>Meaning</p>
+            <p>Slang</p>
           </div>
           <div className="w-full items-center justify-around flex">
             <textarea
