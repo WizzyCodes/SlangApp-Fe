@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 const AuthLayout = () => {
   return (
-    <div>
+    <div className="w-full h-full">
       <Outlet />
     </div>
   );
