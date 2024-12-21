@@ -2,29 +2,45 @@ import pix from "../../assets/images/ghettopic.jpg";
 import { MdPerson } from "react-icons/md";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { createUser } from "../../api/userApi";
+import { useDispatch } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
+import { FaSpinner } from "react-icons/fa";
 const Register = () => {
   const [avatar, setAvatar] = useState<string>("");
   const [Myimage, setMyImage] = useState<string>("");
-  //   const [name, setName] = useState<string>("");
-  //   const [email, setEmail] = useState<string>("");
-  //   const [password, setPasword] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [password, setPasword] = useState<string>("");
+  //   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const Navigate = useNavigate();
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formData);
-    Navigate("/auth/login");
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("image", avatar);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+
+    createUser(formData)
+      ?.then((res) => {
+        // console.log(res);
+
+        if (res.status === 201) {
+          toast.success(res.response.data.message);
+          navigate("/auth/login");
+        } else {
+          toast.error(res.response.data.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleImage = (e: any) => {
@@ -34,8 +50,10 @@ const Register = () => {
   };
   //   bg-[#E8F5E9]bg-[#00897B]
   //
+
   return (
     <div className="w-full h-screen">
+      <Toaster />
       <div className="w-[100%] h-full  flex justify-center items-center">
         <div
           className="h-[80vh] w-[80vw]
@@ -67,13 +85,13 @@ const Register = () => {
                   <MdPerson className="mr-5" />
                 </div>
                 <label
-                  htmlFor="avatar"
+                  htmlFor="image"
                   className="uppercase font-semibold ml-5 text-[14px]"
                 >
                   Upload Avatar
                 </label>
                 <input
-                  id="avatar"
+                  id="image"
                   type="file"
                   accept="image/*"
                   className="hidden"
@@ -102,13 +120,13 @@ const Register = () => {
                     Name
                   </label>
                   <input
-                    type="text"
+                    type="name"
                     id="name"
                     name="name"
                     className="mt-1 p-2 w-full border rounded-lg"
                     required
-                    value={formData.name}
-                    onChange={handleChange}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="mb-4">
@@ -124,8 +142,8 @@ const Register = () => {
                     name="email"
                     className="mt-1 p-2 w-full border rounded-lg"
                     required
-                    value={formData.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mb-4">
@@ -141,15 +159,22 @@ const Register = () => {
                     name="password"
                     className="mt-1 p-2 w-full border rounded-lg"
                     required
-                    value={formData.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={(e) => setPasword(e.target.value)}
                   />
                 </div>
                 <button
                   type="submit"
                   className="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg w-full hover:bg-blue-700"
                 >
-                  Register
+                  {loading ? (
+                    <div className="w-full flex gap-2 items-center justify-center">
+                      <FaSpinner className="animate-spin" />
+                      <div>Loading</div>
+                    </div>
+                  ) : (
+                    "Register"
+                  )}
                 </button>
                 <p className="text-sm text-center mt-4 flex ml-20 gap-1">
                   Already have an account?{" "}

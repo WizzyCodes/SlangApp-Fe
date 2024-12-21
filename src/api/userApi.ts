@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL: string = "https://localhost:3440/api/user";
+const URL: string = "http://localhost:3440/api/user";
 
 export const createUser = (data: any) => {
   try {
@@ -10,7 +10,7 @@ export const createUser = (data: any) => {
       },
     };
     return axios
-      .post(`${URL}/api/user/create-user`, data, config)
+      .post(`${URL}/create-user`, data, config)
 
       .then((res) => {
         return res?.data;
