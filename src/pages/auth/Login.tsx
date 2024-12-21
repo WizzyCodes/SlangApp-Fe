@@ -28,6 +28,7 @@ const Login = () => {
   //
   return (
     <div className="w-full h-screen">
+<<<<<<< HEAD
       <div className="w-[100%] h-full  flex justify-center items-center">
         <div
           className="h-[80vh] w-[80vw]
@@ -119,6 +120,13 @@ const Login = () => {
                 </p>
               </form>
             </div>
+=======
+      <div className="w-[100%] h-full bg-[#00897B] flex justify-center items-center">
+        <div className="h-[70vh] w-[60vw] bg-[#E8F5E9] flex">
+          <div className="w-[50%] h-[100%]"></div>
+          <div className="w-[55%] h-[100%]">
+            <img className="w-[100%] h-[100%] opacity-85" src={pix} alt="" />
+>>>>>>> 71e082756c0059ae313064355caf9eb64096b357
           </div>
         </div>
       </div>
